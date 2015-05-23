@@ -1,0 +1,27 @@
+#!/bin/bash
+# Copy AIS data from serial input to AIS_LOG_NMEA
+
+# Get AIS settings
+. /usr/local/bin/ais-settings
+
+function got_sigterm {
+	pgrep -f 'cat /dev/ttyUSB0' | xargs kill -TERM
+	exit 0
+}
+
+# 38400bsp, 8 data bits, 1 stop bit, none parity
+stty -F /dev/ttyUSB0 38400 cs8 -cstopb
+stty -F /dev/ttyUSB0 raw
+
+# Trap for sigterm
+trap "got_sigterm" SIGTERM
+
+# Start real cat command in background
+cat /dev/ttyUSB0 >>${AIS_LOG_NMEA} &
+
+# Wait until stopped (wait for SIGTERM)
+while :
+do
+	sleep 5
+done
+

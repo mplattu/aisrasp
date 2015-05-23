@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Read AIS settings
+. /usr/local/bin/ais-settings
+
+function got_sigterm {
+        pgrep -f "tail -f ${AIS_LOG_NMEA}" | xargs kill -TERM
+        exit 0
+}
+
+# Trap for sigterm
+trap "got_sigterm" SIGTERM
+
+# Read NMEA file AIS_LOG_NMEA and send data to 127.0.0.1:AIS_PORT
+/usr/bin/tail -f ${AIS_LOG_NMEA} | /usr/local/bin/aisdispatcher -i -H 127.0.0.1:${AIS_PORT} &
+
+# Wait until stopped (wait for SIGTERM)
+while :
+do
+        sleep 5
+done
+
