@@ -11,6 +11,8 @@ rm -f /etc/init.d/ais-dispatcher
 rm -f /etc/init.d/ais-logger
 rm -f /etc/init.d/ais-reader
 
+rm -f /etc/cron.d/ais
+
 rm -f /usr/local/bin/ais-dispatcher
 rm -f /usr/local/bin/ais-logger
 rm -f /usr/local/bin/ais-minicom

@@ -12,6 +12,8 @@ cp /etc/init.d/ais-dispatcher etc/init.d/
 cp /etc/init.d/ais-logger etc/init.d/
 cp /etc/init.d/ais-reader etc/init.d/
 
+cp /etc/cron.d/ais etc/cron.d/
+
 cp /usr/local/bin/ais-dispatcher usr/local/bin/
 cp /usr/local/bin/ais-logger usr/local/bin/
 cp /usr/local/bin/ais-minicom usr/local/bin/
