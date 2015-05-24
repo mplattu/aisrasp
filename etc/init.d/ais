@@ -36,8 +36,6 @@ do_start()
 	/etc/init.d/ais-dispatcher start
 	/etc/init.d/ais-logger start
 	/etc/init.d/ais-bliso start
-	# Always return OK
-	exit 0
 }
 
 #
@@ -49,8 +47,6 @@ do_stop()
 	/etc/init.d/ais-reader stop
 	/etc/init.d/ais-dispatcher stop
 	/etc/init.d/ais-logger stop
-	# Always return OK
-	exit 0
 }
 
 #
@@ -58,6 +54,7 @@ do_stop()
 #
 do_reload() {
 	do_stop
+	sleep 3
 	do_start
 }
 
@@ -78,9 +75,9 @@ case "$1" in
 		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
 	esac
 	;;
-  status)
-	status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
-	;;
+  #status)
+	#status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
+	#;;
   #reload|force-reload)
 	#
 	# If do_reload() is not implemented then leave this commented out
@@ -90,31 +87,14 @@ case "$1" in
 	#do_reload
 	#log_end_msg $?
 	#;;
-  restart|force-reload)
-	#
-	# If the "reload" option is implemented then remove the
-	# 'force-reload' alias
-	#
-	log_daemon_msg "Restarting $DESC" "$NAME"
-	do_stop
-	case "$?" in
-	  0|1)
-		do_start
-		case "$?" in
-			0) log_end_msg 0 ;;
-			1) log_end_msg 1 ;; # Old process is still running
-			*) log_end_msg 1 ;; # Failed to start
-		esac
-		;;
-	  *)
-		# Failed to stop
-		log_end_msg 1
-		;;
-	esac
+  restart|reload|force-reload)
+	log_daemon_msg "Reloading $DESC" "$NAME"
+	do_reload
+	log_end_msg 0
 	;;
   *)
 	#echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
-	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|status|restart|reload|force-reload}" >&2
 	exit 3
 	;;
 esac
