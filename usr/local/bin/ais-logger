@@ -4,14 +4,14 @@
 . /usr/local/bin/ais-settings
 
 function got_sigterm {
-        pgrep -f 'nc -l 127.0.0.1' | xargs kill -TERM
+        pgrep -f 'nc -u -l 127.0.0.1' | xargs kill -TERM
         exit 0
 }
 
 # Trap for sigterm
 trap "got_sigterm" SIGTERM
 
-nc -l 127.0.0.1 ${AIS_PORT} >>${AIS_LOG_AIS} &
+nc -u -l 127.0.0.1 ${AIS_PORT} >>${AIS_LOG_AIS} &
 
 # Wait until stopped (wait for SIGTERM)
 while :
