@@ -6,3 +6,5 @@ AIS_PATH=/mnt/ais-data
 AIS_LOG_NMEA="${AIS_PATH}/nmea_${AIS_NOW}.txt"
 AIS_LOG_AIS="${AIS_PATH}/ais_${AIS_NOW}.txt"
 AIS_PORT=3232
+AIS_DOWNSAMPLE=30
+

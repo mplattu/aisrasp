@@ -12,7 +12,7 @@ function got_sigterm {
 trap "got_sigterm" SIGTERM
 
 # Read NMEA file AIS_LOG_NMEA and send data to 127.0.0.1:AIS_PORT
-/usr/bin/tail -f ${AIS_LOG_NMEA} | /usr/local/bin/aisdispatcher -i -H 127.0.0.1:${AIS_PORT} &
+/usr/bin/tail -f ${AIS_LOG_NMEA} | /usr/local/bin/aisdispatcher -i -D ${AIS_DOWNSAMPLE} -H 127.0.0.1:${AIS_PORT} &
 
 # Wait until stopped (wait for SIGTERM)
 while :
