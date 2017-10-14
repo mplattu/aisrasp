@@ -26,7 +26,7 @@ Project will use following hardware components:
 
 Software components:
 
-* [aisdispatcher](http://www.aishub.net/aisdispatcher-linux.html), ARM glibc version. Decodes raw NMEA data to AIS information.
+* [aisdispatcher](http://www.aishub.net/ais-dispatcher?tab=linux), ARM glibc version. Decodes raw NMEA data to AIS information.
 * [WiringPi2-Python](https://github.com/Gadgetoid/WiringPi2-Python), a Python library to BLiSo
 
 ## Installation
